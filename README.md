@@ -15,4 +15,4 @@ Install
 
 You have to get the source code of Godot to compile it with the module. Copy the contents of the repository inside a `fastnoise`  directory under Godot's `modules` folder. The name is important for the module to compile properly.
 
-Example git command: `git clone https://github.com/Zylann/godot_opensimplex.git opensimplex`
+Example git command: `git clone https://github.com/Zylann/godot_fastnoise.git fastnoise`
