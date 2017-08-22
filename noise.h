@@ -7,7 +7,7 @@
 typedef fastnoise::FastNoise _FastNoise;
 
 class FastNoise : public Reference {
-    OBJ_TYPE(FastNoise, Reference);
+	GDCLASS(FastNoise, Reference);
 
 public:
 

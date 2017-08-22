@@ -47,26 +47,26 @@ void FastNoise::set_cellular_noise_lookup(Ref<FastNoise> other_noise) {
 
 void FastNoise::_bind_methods() {
     
-    ObjectTypeDB::bind_method(_MD("set_seed", "seed"), &FastNoise::set_seed);
-    ObjectTypeDB::bind_method(_MD("get_seed"), &FastNoise::get_seed);
+	ClassDB::bind_method(D_METHOD("set_seed", "seed"), &FastNoise::set_seed);
+	ClassDB::bind_method(D_METHOD("get_seed"), &FastNoise::get_seed);
 
-    ObjectTypeDB::bind_method(_MD("set_noise_type", "type"), &FastNoise::set_noise_type);
-    ObjectTypeDB::bind_method(_MD("set_interpolation", "interp"), &FastNoise::set_interpolation);
-    ObjectTypeDB::bind_method(_MD("set_frequency", "freq"), &FastNoise::set_frequency);
-    ObjectTypeDB::bind_method(_MD("set_fractal_gain", "gain"), &FastNoise::set_fractal_gain);
-    ObjectTypeDB::bind_method(_MD("set_fractal_type", "type"), &FastNoise::set_fractal_type);
-    ObjectTypeDB::bind_method(_MD("set_fractal_octaves", "octave_count"), &FastNoise::set_fractal_octaves);
-    ObjectTypeDB::bind_method(_MD("set_fractal_lacunarity", "lacunarity"), &FastNoise::set_fractal_lacunarity);
-    ObjectTypeDB::bind_method(_MD("set_cellular_distance_function", "func"), &FastNoise::set_cellular_distance_function);
-    ObjectTypeDB::bind_method(_MD("set_cellular_return_type", "ret"), &FastNoise::set_cellular_return_type);
-    ObjectTypeDB::bind_method(_MD("set_cellular_noise_lookup", "other_noise:FastNoise"), &FastNoise::set_cellular_noise_lookup);
+	ClassDB::bind_method(D_METHOD("set_noise_type", "type"), &FastNoise::set_noise_type);
+	ClassDB::bind_method(D_METHOD("set_interpolation", "interp"), &FastNoise::set_interpolation);
+	ClassDB::bind_method(D_METHOD("set_frequency", "freq"), &FastNoise::set_frequency);
+	ClassDB::bind_method(D_METHOD("set_fractal_gain", "gain"), &FastNoise::set_fractal_gain);
+	ClassDB::bind_method(D_METHOD("set_fractal_type", "type"), &FastNoise::set_fractal_type);
+	ClassDB::bind_method(D_METHOD("set_fractal_octaves", "octave_count"), &FastNoise::set_fractal_octaves);
+	ClassDB::bind_method(D_METHOD("set_fractal_lacunarity", "lacunarity"), &FastNoise::set_fractal_lacunarity);
+	ClassDB::bind_method(D_METHOD("set_cellular_distance_function", "func"), &FastNoise::set_cellular_distance_function);
+	ClassDB::bind_method(D_METHOD("set_cellular_return_type", "ret"), &FastNoise::set_cellular_return_type);
+	ClassDB::bind_method(D_METHOD("set_cellular_noise_lookup", "other_noise"), &FastNoise::set_cellular_noise_lookup);
 
-    ObjectTypeDB::bind_method(_MD("get_noise_2d", "x", "y"), &FastNoise::get_noise_2d);
-    ObjectTypeDB::bind_method(_MD("get_noise_2dv", "pos"), &FastNoise::get_noise_2dv);
-    ObjectTypeDB::bind_method(_MD("get_noise_3d", "x", "y", "z"), &FastNoise::get_noise_3d);
-    ObjectTypeDB::bind_method(_MD("get_noise_3dv", "pos"), &FastNoise::get_noise_3dv);
-    ObjectTypeDB::bind_method(_MD("get_simplex_4d", "x", "y", "z", "w"), &FastNoise::get_simplex_4d);
-    ObjectTypeDB::bind_method(_MD("get_white_noise_4d", "x", "y", "z", "w"), &FastNoise::get_white_noise_4d);
+	ClassDB::bind_method(D_METHOD("get_noise_2d", "x", "y"), &FastNoise::get_noise_2d);
+	ClassDB::bind_method(D_METHOD("get_noise_2dv", "pos"), &FastNoise::get_noise_2dv);
+	ClassDB::bind_method(D_METHOD("get_noise_3d", "x", "y", "z"), &FastNoise::get_noise_3d);
+	ClassDB::bind_method(D_METHOD("get_noise_3dv", "pos"), &FastNoise::get_noise_3dv);
+	ClassDB::bind_method(D_METHOD("get_simplex_4d", "x", "y", "z", "w"), &FastNoise::get_simplex_4d);
+	ClassDB::bind_method(D_METHOD("get_white_noise_4d", "x", "y", "z", "w"), &FastNoise::get_white_noise_4d);
     // TODO Bind intermediary functions?
 
     BIND_CONSTANT( TYPE_VALUE );
