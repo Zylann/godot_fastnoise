@@ -76,7 +76,7 @@ void FastNoise::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_fractal_gain"), &FastNoise::get_fractal_gain);
 
 	ClassDB::bind_method(D_METHOD("set_fractal_type", "type"), &FastNoise::set_fractal_type);
-	ClassDB::bind_method(D_METHOD("get_fractal_type", "type"), &FastNoise::get_fractal_type);
+	ClassDB::bind_method(D_METHOD("get_fractal_type"), &FastNoise::get_fractal_type);
 
 	ClassDB::bind_method(D_METHOD("set_fractal_octaves", "octave_count"), &FastNoise::set_fractal_octaves);
 	ClassDB::bind_method(D_METHOD("get_fractal_octaves"), &FastNoise::get_fractal_octaves);
@@ -99,7 +99,7 @@ void FastNoise::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_cellular_jitter", "jitter"), &FastNoise::set_cellular_jitter);
 	ClassDB::bind_method(D_METHOD("get_cellular_jitter"), &FastNoise::get_cellular_jitter);
 
-	ClassDB::bind_method(D_METHOD("set_gradient_perturbation_amplitude", "amp"), &FastNoise::get_gradient_perturbation_amplitude);
+	ClassDB::bind_method(D_METHOD("set_gradient_perturbation_amplitude", "amp"), &FastNoise::set_gradient_perturbation_amplitude);
 	ClassDB::bind_method(D_METHOD("get_gradient_perturbation_amplitude"), &FastNoise::get_gradient_perturbation_amplitude);
 
 	ClassDB::bind_method(D_METHOD("get_noise_2d", "x", "y"), &FastNoise::get_noise_2d);
