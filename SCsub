@@ -1,4 +1,9 @@
 Import('env')
 
-env.add_source_files(env.modules_sources,"*.cpp")
-env.add_source_files(env.modules_sources,"lib/*.cpp")
+module_env = env.Clone()
+
+module_env.add_source_files(env.modules_sources,"*.cpp")
+module_env.add_source_files(env.modules_sources,"lib/*.cpp")
+
+# FastNoise uses a few C++11 features
+module_env.Append(CPPFLAGS=["-std=c++11"])
