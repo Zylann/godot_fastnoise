@@ -7,28 +7,29 @@
 typedef fastnoise::FastNoise _FastNoise;
 
 class FastNoise : public Reference {
-	GDCLASS(FastNoise, Reference);
+	GDCLASS(FastNoise, Reference)
 
 public:
 
     // Enums Godot-style (same values)
 
     enum Type {
-        TYPE_VALUE = _FastNoise::Value,
-        TYPE_VALUE_FRACTAL = _FastNoise::ValueFractal,
-        TYPE_GRADIENT = _FastNoise::Gradient,
-        TYPE_GRADIENT_FRACTAL = _FastNoise::GradientFractal,
-        TYPE_SIMPLEX = _FastNoise::Simplex,
-        TYPE_SIMPLEX_FRACTAL = _FastNoise::SimplexFractal,
-        TYPE_CELLULAR = _FastNoise::Cellular,
-        TYPE_CELLULAR_HQ = _FastNoise::CellularHQ,
-        TYPE_WHITE_NOISE = _FastNoise::WhiteNoise
+		TYPE_VALUE = _FastNoise::Value,
+		TYPE_VALUE_FRACTAL = _FastNoise::ValueFractal,
+		TYPE_PERLIN = _FastNoise::Perlin,
+		TYPE_PERLIN_FRACTAL = _FastNoise::PerlinFractal,
+		TYPE_SIMPLEX = _FastNoise::Simplex,
+		TYPE_SIMPLEX_FRACTAL = _FastNoise::SimplexFractal,
+		TYPE_CELLULAR = _FastNoise::Cellular,
+		TYPE_WHITE_NOISE = _FastNoise::WhiteNoise,
+		TYPE_CUBIC = _FastNoise::Cubic,
+		TYPE_CUBIC_FRACTAL = _FastNoise::CubicFractal
     };
 
     enum Interpolation {
-        INTERP_LINEAR = _FastNoise::InterpLinear,
-        INTERP_QUINTIC = _FastNoise::InterpQuintic,
-        INTERP_HERMITE = _FastNoise::InterpHermite
+		INTERP_LINEAR = _FastNoise::Linear,
+		INTERP_QUINTIC = _FastNoise::Quintic,
+		INTERP_HERMITE = _FastNoise::Hermite
     };
 
     enum FractalType {
@@ -46,35 +47,59 @@ public:
     enum CellularReturnType {
         RETURN_CELL_VALUE = _FastNoise::CellValue,
         RETURN_NOISE_LOOKUP = _FastNoise::NoiseLookup,
-        RETURN_DISTANCE_2_CENTER = _FastNoise::Distance2Center,
-        RETURN_DISTANCE_2_CENTER_X_VALUE = _FastNoise::Distance2CenterXValue,
-        RETURN_DISTANCE_2_CENTER_SQ = _FastNoise::Distance2CenterSq,
-        RETURN_DISTANCE_2_CENTER_SQ_X_VALUE = _FastNoise::Distance2CenterSqXValue,
-        RETURN_DISTANCE_2_EDGE = _FastNoise::Distance2Edge,
-        RETURN_DISTANCE_2_EDGE_X_VALUE = _FastNoise::Distance2EdgeXValue,
-        RETURN_DISTANCE_2_EDGE_SQ = _FastNoise::Distance2EdgeSq,
-        RETURN_DISTANCE_2_EDGE_SQ_X_VALUE = _FastNoise::Distance2EdgeSqXValue
+		RETURN_DISTANCE = _FastNoise::Distance,
+		RETURN_DISTANCE_2 = _FastNoise::Distance2,
+		RETURN_DISTANCE_2_ADD = _FastNoise::Distance2Add,
+		RETURN_DISTANCE_2_SUB = _FastNoise::Distance2Sub,
+		RETURN_DISTANCE_2_MUL = _FastNoise::Distance2Mul,
+		RETURN_DISTANCE_2_DIV = _FastNoise::Distance2Div
     };
     
     FastNoise();
 
     // Methods (Godot-style mappings to FastNoise)
 
-    int get_seed() { return _noise.GetSeed(); } // TODO should be const
+	int get_seed() const { return _noise.GetSeed(); }
     void set_seed(int seed) { _noise.SetSeed(seed); }
 
     void set_noise_type(Type noise_type) { _noise.SetNoiseType((_FastNoise::NoiseType)noise_type); }
-    void set_interpolation(Interpolation interp) { _noise.SetInterp((_FastNoise::Interp)interp); }
-    void set_frequency(float freq) { _noise.SetFrequency(freq); }
-    void set_fractal_gain(float gain) { _noise.SetFractalGain(gain); }
-    void set_fractal_type(FractalType type) { _noise.SetFractalType((_FastNoise::FractalType)type); }
-    void set_fractal_octaves(unsigned int octave_count) { _noise.SetFractalOctaves(octave_count); }
-    void set_fractal_lacunarity(float lacunarity) { _noise.SetFractalLacunarity(lacunarity); }
-    void set_cellular_distance_function(CellularDistanceFunction func) { _noise.SetCellularDistanceFunction((_FastNoise::CellularDistanceFunction)func); }
-    void set_cellular_return_type(CellularReturnType ret) { _noise.SetCellularReturnType((_FastNoise::CellularReturnType)ret); }
+	Type get_noise_type() const { return (Type)_noise.GetNoiseType(); }
 
-    // TODO Q: how can I do that properly?
+	void set_interpolation(Interpolation interp) { _noise.SetInterp((_FastNoise::Interp)interp); }
+	Interpolation get_interpolation() const { return (Interpolation)_noise.GetInterp(); }
+
+	void set_frequency(real_t freq) { _noise.SetFrequency(freq); }
+	real_t get_frequency() const { return _noise.GetFrequency(); }
+
+	void set_fractal_octaves(unsigned int octave_count) { _noise.SetFractalOctaves(octave_count); }
+	int get_fractal_octaves() const { return _noise.GetFractalOctaves(); }
+
+	void set_fractal_lacunarity(real_t lacunarity) { _noise.SetFractalLacunarity(lacunarity); }
+	real_t get_fractal_lacunarity() const { return _noise.GetFractalLacunarity(); }
+
+	void set_fractal_gain(real_t gain) { _noise.SetFractalGain(gain); }
+	real_t get_fractal_gain() const { return _noise.GetFractalGain(); }
+
+	void set_fractal_type(FractalType type) { _noise.SetFractalType((_FastNoise::FractalType)type); }
+	FractalType get_fractal_type() const { return (FractalType)_noise.GetFractalType(); }
+
+	void set_cellular_distance_function(CellularDistanceFunction func) { _noise.SetCellularDistanceFunction((_FastNoise::CellularDistanceFunction)func); }
+	CellularDistanceFunction get_cellular_distance_function() const { return (CellularDistanceFunction)_noise.GetCellularDistanceFunction(); }
+
+	void set_cellular_return_type(CellularReturnType ret) { _noise.SetCellularReturnType((_FastNoise::CellularReturnType)ret); }
+	CellularReturnType get_cellular_return_type() const { return (CellularReturnType)_noise.GetCellularReturnType(); }
+
     void set_cellular_noise_lookup(Ref<FastNoise> other_noise);
+	Ref<FastNoise> get_cellular_noise_lookup() const { return _cellular_lookup_ref; }
+
+	void set_cellular_distance_2_indices(int index0, int index1);
+	PoolIntArray get_cellular_distance_2_indices() const;
+
+	void set_cellular_jitter(real_t jitter) { _noise.SetCellularJitter(jitter); }
+	real_t get_cellular_jitter() const { return _noise.GetCellularJitter(); }
+
+	void set_gradient_perturbation_amplitude(real_t amp) { _noise.SetGradientPerturbAmp(amp); }
+	real_t get_gradient_perturbation_amplitude() const { return _noise.GetGradientPerturbAmp(); }
 
     // 2D
 
@@ -119,11 +144,11 @@ private:
 };
 
 // Make Variant happy with custom enums
-VARIANT_ENUM_CAST(FastNoise::Type);
-VARIANT_ENUM_CAST(FastNoise::FractalType);
-VARIANT_ENUM_CAST(FastNoise::Interpolation);
-VARIANT_ENUM_CAST(FastNoise::CellularDistanceFunction);
-VARIANT_ENUM_CAST(FastNoise::CellularReturnType);
+VARIANT_ENUM_CAST(FastNoise::Type)
+VARIANT_ENUM_CAST(FastNoise::FractalType)
+VARIANT_ENUM_CAST(FastNoise::Interpolation)
+VARIANT_ENUM_CAST(FastNoise::CellularDistanceFunction)
+VARIANT_ENUM_CAST(FastNoise::CellularReturnType)
 
 
 #endif // FASTNOISE_NOISE_H

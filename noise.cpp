@@ -45,21 +45,62 @@ void FastNoise::set_cellular_noise_lookup(Ref<FastNoise> other_noise) {
         _noise.SetCellularNoiseLookup(&_cellular_lookup_ref->_noise);
 }
 
+void FastNoise::set_cellular_distance_2_indices(int index0, int index1) {
+	_noise.SetCellularDistance2Indices(index0, index1);
+}
+
+PoolIntArray FastNoise::get_cellular_distance_2_indices() const {
+	int i0, i1;
+	_noise.GetCellularDistance2Indices(i0, i1);
+	PoolIntArray a;
+	a.append(i0);
+	a.append(i1);
+	return a;
+}
+
 void FastNoise::_bind_methods() {
     
 	ClassDB::bind_method(D_METHOD("set_seed", "seed"), &FastNoise::set_seed);
 	ClassDB::bind_method(D_METHOD("get_seed"), &FastNoise::get_seed);
 
 	ClassDB::bind_method(D_METHOD("set_noise_type", "type"), &FastNoise::set_noise_type);
+	ClassDB::bind_method(D_METHOD("get_noise_type"), &FastNoise::get_noise_type);
+
 	ClassDB::bind_method(D_METHOD("set_interpolation", "interp"), &FastNoise::set_interpolation);
+	ClassDB::bind_method(D_METHOD("get_interpolation"), &FastNoise::get_interpolation);
+
 	ClassDB::bind_method(D_METHOD("set_frequency", "freq"), &FastNoise::set_frequency);
+	ClassDB::bind_method(D_METHOD("get_frequency"), &FastNoise::get_frequency);
+
 	ClassDB::bind_method(D_METHOD("set_fractal_gain", "gain"), &FastNoise::set_fractal_gain);
+	ClassDB::bind_method(D_METHOD("get_fractal_gain"), &FastNoise::get_fractal_gain);
+
 	ClassDB::bind_method(D_METHOD("set_fractal_type", "type"), &FastNoise::set_fractal_type);
+	ClassDB::bind_method(D_METHOD("get_fractal_type", "type"), &FastNoise::get_fractal_type);
+
 	ClassDB::bind_method(D_METHOD("set_fractal_octaves", "octave_count"), &FastNoise::set_fractal_octaves);
+	ClassDB::bind_method(D_METHOD("get_fractal_octaves"), &FastNoise::get_fractal_octaves);
+
 	ClassDB::bind_method(D_METHOD("set_fractal_lacunarity", "lacunarity"), &FastNoise::set_fractal_lacunarity);
+	ClassDB::bind_method(D_METHOD("get_fractal_lacunarity"), &FastNoise::get_fractal_lacunarity);
+
 	ClassDB::bind_method(D_METHOD("set_cellular_distance_function", "func"), &FastNoise::set_cellular_distance_function);
+	ClassDB::bind_method(D_METHOD("get_cellular_distance_function"), &FastNoise::get_cellular_distance_function);
+
 	ClassDB::bind_method(D_METHOD("set_cellular_return_type", "ret"), &FastNoise::set_cellular_return_type);
+	ClassDB::bind_method(D_METHOD("get_cellular_return_type"), &FastNoise::get_cellular_return_type);
+
 	ClassDB::bind_method(D_METHOD("set_cellular_noise_lookup", "other_noise"), &FastNoise::set_cellular_noise_lookup);
+	ClassDB::bind_method(D_METHOD("get_cellular_noise_lookup"), &FastNoise::get_cellular_noise_lookup);
+
+	ClassDB::bind_method(D_METHOD("set_cellular_distance_2_indices", "i0", "i1"), &FastNoise::set_cellular_distance_2_indices);
+	ClassDB::bind_method(D_METHOD("get_cellular_distance_2_indices"), &FastNoise::get_cellular_distance_2_indices);
+
+	ClassDB::bind_method(D_METHOD("set_cellular_jitter", "jitter"), &FastNoise::set_cellular_jitter);
+	ClassDB::bind_method(D_METHOD("get_cellular_jitter"), &FastNoise::get_cellular_jitter);
+
+	ClassDB::bind_method(D_METHOD("set_gradient_perturbation_amplitude", "amp"), &FastNoise::get_gradient_perturbation_amplitude);
+	ClassDB::bind_method(D_METHOD("get_gradient_perturbation_amplitude"), &FastNoise::get_gradient_perturbation_amplitude);
 
 	ClassDB::bind_method(D_METHOD("get_noise_2d", "x", "y"), &FastNoise::get_noise_2d);
 	ClassDB::bind_method(D_METHOD("get_noise_2dv", "pos"), &FastNoise::get_noise_2dv);
@@ -69,38 +110,37 @@ void FastNoise::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_white_noise_4d", "x", "y", "z", "w"), &FastNoise::get_white_noise_4d);
     // TODO Bind intermediary functions?
 
-    BIND_CONSTANT( TYPE_VALUE );
-    BIND_CONSTANT( TYPE_VALUE_FRACTAL );
-    BIND_CONSTANT( TYPE_GRADIENT );
-    BIND_CONSTANT( TYPE_GRADIENT_FRACTAL );
-    BIND_CONSTANT( TYPE_SIMPLEX );
-    BIND_CONSTANT( TYPE_SIMPLEX_FRACTAL );
-    BIND_CONSTANT( TYPE_CELLULAR );
-    BIND_CONSTANT( TYPE_CELLULAR_HQ );
-    BIND_CONSTANT( TYPE_WHITE_NOISE );
+	BIND_ENUM_CONSTANT( TYPE_VALUE );
+	BIND_ENUM_CONSTANT( TYPE_VALUE_FRACTAL );
+	BIND_ENUM_CONSTANT( TYPE_PERLIN );
+	BIND_ENUM_CONSTANT( TYPE_PERLIN_FRACTAL );
+	BIND_ENUM_CONSTANT( TYPE_SIMPLEX );
+	BIND_ENUM_CONSTANT( TYPE_SIMPLEX_FRACTAL );
+	BIND_ENUM_CONSTANT( TYPE_CELLULAR );
+	BIND_ENUM_CONSTANT( TYPE_WHITE_NOISE );
+	BIND_ENUM_CONSTANT( TYPE_CUBIC );
+	BIND_ENUM_CONSTANT( TYPE_CUBIC_FRACTAL );
 
-    BIND_CONSTANT( INTERP_LINEAR );
-    BIND_CONSTANT( INTERP_QUINTIC );
-    BIND_CONSTANT( INTERP_HERMITE );
+	BIND_ENUM_CONSTANT( INTERP_LINEAR );
+	BIND_ENUM_CONSTANT( INTERP_QUINTIC );
+	BIND_ENUM_CONSTANT( INTERP_HERMITE );
 
-    BIND_CONSTANT( FRACTAL_FBM );
-    BIND_CONSTANT( FRACTAL_BILLOW );
-    BIND_CONSTANT( FRACTAL_RIGID_MULTI );
+	BIND_ENUM_CONSTANT( FRACTAL_FBM );
+	BIND_ENUM_CONSTANT( FRACTAL_BILLOW );
+	BIND_ENUM_CONSTANT( FRACTAL_RIGID_MULTI );
 
-    BIND_CONSTANT( DISTANCE_EUCLIDEAN );
-    BIND_CONSTANT( DISTANCE_MANHATTAN );
-    BIND_CONSTANT( DISTANCE_NATURAL );
+	BIND_ENUM_CONSTANT( DISTANCE_EUCLIDEAN );
+	BIND_ENUM_CONSTANT( DISTANCE_MANHATTAN );
+	BIND_ENUM_CONSTANT( DISTANCE_NATURAL );
 
-    BIND_CONSTANT( RETURN_CELL_VALUE );
-    BIND_CONSTANT( RETURN_NOISE_LOOKUP );
-    BIND_CONSTANT( RETURN_DISTANCE_2_CENTER );
-    BIND_CONSTANT( RETURN_DISTANCE_2_CENTER_X_VALUE );
-    BIND_CONSTANT( RETURN_DISTANCE_2_CENTER_SQ );
-    BIND_CONSTANT( RETURN_DISTANCE_2_CENTER_SQ_X_VALUE );
-    BIND_CONSTANT( RETURN_DISTANCE_2_EDGE );
-    BIND_CONSTANT( RETURN_DISTANCE_2_EDGE_X_VALUE );
-    BIND_CONSTANT( RETURN_DISTANCE_2_EDGE_SQ );
-    BIND_CONSTANT( RETURN_DISTANCE_2_EDGE_SQ_X_VALUE );
+	BIND_ENUM_CONSTANT( RETURN_CELL_VALUE );
+	BIND_ENUM_CONSTANT( RETURN_NOISE_LOOKUP );
+	BIND_ENUM_CONSTANT( RETURN_DISTANCE );
+	BIND_ENUM_CONSTANT( RETURN_DISTANCE_2 );
+	BIND_ENUM_CONSTANT( RETURN_DISTANCE_2_ADD );
+	BIND_ENUM_CONSTANT( RETURN_DISTANCE_2_SUB );
+	BIND_ENUM_CONSTANT( RETURN_DISTANCE_2_MUL );
+	BIND_ENUM_CONSTANT( RETURN_DISTANCE_2_DIV );
 
 }
 
